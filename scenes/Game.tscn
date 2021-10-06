@@ -1,0 +1,120 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scenes/HexMap.tscn" type="PackedScene" id=1]
+[ext_resource path="res://fonts/OpenSans-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://scripts/game_runner.gd" type="Script" id=3]
+[ext_resource path="res://scenes/PlayerChip.tscn" type="PackedScene" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 64
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 72
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+use_filter = true
+font_data = ExtResource( 2 )
+
+[node name="Game" type="Node2D"]
+script = ExtResource( 3 )
+player_one_indicator_pos = Vector2( 15, 447 )
+player_two_indicator_pos = Vector2( 146, 447 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+
+[node name="HexMap" parent="." instance=ExtResource( 1 )]
+player_chip_scene = ExtResource( 4 )
+
+[node name="GameUI" type="CanvasLayer" parent="."]
+
+[node name="CurrentRect" type="ColorRect" parent="GameUI"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 146.0
+margin_top = -153.0
+margin_right = 286.0
+margin_bottom = -13.0
+rect_min_size = Vector2( 140, 140 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameUI"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_top = -147.0
+margin_right = 280.0
+margin_bottom = -19.0
+rect_min_size = Vector2( 256, 128 )
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BluePlayerRect" type="ColorRect" parent="GameUI/HBoxContainer"]
+margin_right = 128.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 128, 128 )
+color = Color( 0.25098, 0.25098, 1, 1 )
+
+[node name="BluePlayerChipCount" type="Label" parent="GameUI/HBoxContainer/BluePlayerRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 1 )
+text = "18"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RedPlayerRect" type="ColorRect" parent="GameUI/HBoxContainer"]
+margin_left = 132.0
+margin_right = 260.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 128, 128 )
+color = Color( 1, 0.25098, 0.25098, 1 )
+
+[node name="RedPlayerChipCount" type="Label" parent="GameUI/HBoxContainer/RedPlayerRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 1 )
+text = "18"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MessageContainer" type="CenterContainer" parent="GameUI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BlueWinsLabel" type="Label" parent="GameUI/MessageContainer"]
+visible = false
+modulate = Color( 0.25098, 0.25098, 1, 1 )
+margin_left = 324.0
+margin_top = 250.0
+margin_right = 700.0
+margin_bottom = 349.0
+custom_fonts/font = SubResource( 2 )
+text = "BLUE WINS"
+
+[node name="RedWinsLabel" type="Label" parent="GameUI/MessageContainer"]
+visible = false
+modulate = Color( 1, 0.25098, 0.25098, 1 )
+margin_left = 343.0
+margin_top = 250.0
+margin_right = 680.0
+margin_bottom = 349.0
+custom_fonts/font = SubResource( 2 )
+text = "RED WINS"
+
+[connection signal="gui_input" from="GameUI/MessageContainer" to="." method="_on_MessageContainer_gui_input"]

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/HexNode.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/hex_map.gd" type="Script" id=2]
+
+[node name="HexMap" type="Node2D"]
+script = ExtResource( 2 )
+hex_node_scene = ExtResource( 1 )
+rings = 2
+
+[node name="Hexes" type="YSort" parent="."]
+sort_enabled = false
+
+[node name="Chips" type="YSort" parent="."]
+sort_enabled = false

@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://sprites/RedChip.png" type="Texture" id=1]
+[ext_resource path="res://sprites/BlueChip.png" type="Texture" id=2]
+[ext_resource path="res://scripts/player_chip.gd" type="Script" id=3]
+
+[node name="PlayerChip" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="PlayerOneSprite" type="Sprite" parent="."]
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 2 )
+
+[node name="PlayerTwoSprite" type="Sprite" parent="."]
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 1 )
