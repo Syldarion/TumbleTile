@@ -1,18 +1,20 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/HexMap.tscn" type="PackedScene" id=1]
 [ext_resource path="res://fonts/OpenSans-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://scripts/game_runner.gd" type="Script" id=3]
 [ext_resource path="res://scenes/PlayerChip.tscn" type="PackedScene" id=4]
-
-[sub_resource type="DynamicFont" id=1]
-size = 64
-font_data = ExtResource( 2 )
+[ext_resource path="res://scripts/game_ui.gd" type="Script" id=5]
 
 [sub_resource type="DynamicFont" id=2]
 size = 72
 outline_size = 2
 outline_color = Color( 0, 0, 0, 1 )
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 48
 use_filter = true
 font_data = ExtResource( 2 )
 
@@ -22,72 +24,14 @@ player_one_indicator_pos = Vector2( 15, 447 )
 player_two_indicator_pos = Vector2( 146, 447 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2( 0, -50 )
 current = true
 
 [node name="HexMap" parent="." instance=ExtResource( 1 )]
 player_chip_scene = ExtResource( 4 )
 
 [node name="GameUI" type="CanvasLayer" parent="."]
-
-[node name="CurrentRect" type="ColorRect" parent="GameUI"]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = 146.0
-margin_top = -153.0
-margin_right = 286.0
-margin_bottom = -13.0
-rect_min_size = Vector2( 140, 140 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="HBoxContainer" type="HBoxContainer" parent="GameUI"]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = 20.0
-margin_top = -147.0
-margin_right = 280.0
-margin_bottom = -19.0
-rect_min_size = Vector2( 256, 128 )
-alignment = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="BluePlayerRect" type="ColorRect" parent="GameUI/HBoxContainer"]
-margin_right = 128.0
-margin_bottom = 128.0
-rect_min_size = Vector2( 128, 128 )
-color = Color( 0.25098, 0.25098, 1, 1 )
-
-[node name="BluePlayerChipCount" type="Label" parent="GameUI/HBoxContainer/BluePlayerRect"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_fonts/font = SubResource( 1 )
-text = "18"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="RedPlayerRect" type="ColorRect" parent="GameUI/HBoxContainer"]
-margin_left = 132.0
-margin_right = 260.0
-margin_bottom = 128.0
-rect_min_size = Vector2( 128, 128 )
-color = Color( 1, 0.25098, 0.25098, 1 )
-
-[node name="RedPlayerChipCount" type="Label" parent="GameUI/HBoxContainer/RedPlayerRect"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_fonts/font = SubResource( 1 )
-text = "18"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
+script = ExtResource( 5 )
 
 [node name="MessageContainer" type="CenterContainer" parent="GameUI"]
 anchor_right = 1.0
@@ -116,5 +60,444 @@ margin_right = 680.0
 margin_bottom = 349.0
 custom_fonts/font = SubResource( 2 )
 text = "RED WINS"
+
+[node name="ScorePanel" type="PanelContainer" parent="GameUI"]
+anchor_right = 1.0
+margin_bottom = 80.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScoreContainer" type="HBoxContainer" parent="GameUI/ScorePanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1017.0
+margin_bottom = 73.0
+alignment = 1
+
+[node name="BlueScoreContainer" type="HBoxContainer" parent="GameUI/ScorePanel/ScoreContainer"]
+margin_left = 321.0
+margin_right = 499.0
+margin_bottom = 66.0
+alignment = 2
+
+[node name="TurnIndicator" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/BlueScoreContainer"]
+margin_right = 10.0
+margin_bottom = 66.0
+rect_min_size = Vector2( 10, 40 )
+color = Color( 1, 1, 0.25098, 1 )
+
+[node name="ChitsContainer" type="GridContainer" parent="GameUI/ScorePanel/ScoreContainer/BlueScoreContainer"]
+margin_left = 14.0
+margin_top = 14.0
+margin_right = 94.0
+margin_bottom = 52.0
+size_flags_vertical = 4
+columns = 6
+
+[node name="ColorRect" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/BlueScoreContainer/ChitsContainer"]
+margin_right = 10.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 0.25098, 0.25098, 1, 1 )
+
+[node name="ColorRect2" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/BlueScoreContainer/ChitsContainer"]
+margin_left = 14.0
+margin_right = 24.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 0.25098, 0.25098, 1, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/BlueScoreContainer/ChitsContainer"]
+margin_left = 28.0
+margin_right = 38.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 0.25098, 0.25098, 1, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/BlueScoreContainer/ChitsContainer"]
+margin_left = 42.0
+margin_right = 52.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 0.25098, 0.25098, 1, 1 )
+
+[node name="ColorRect5" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/BlueScoreContainer/ChitsContainer"]
+margin_left = 56.0
+margin_right = 66.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 0.25098, 0.25098, 1, 1 )
+
+[node name="ColorRect6" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/BlueScoreContainer/ChitsContainer"]
+margin_left = 70.0
+margin_right = 80.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 0.25098, 0.25098, 1, 1 )
+
+[node name="ColorRect7" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/BlueScoreContainer/ChitsContainer"]
+margin_top = 14.0
+margin_right = 10.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 0.25098, 0.25098, 1, 1 )
+
+[node name="ColorRect8" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/BlueScoreContainer/ChitsContainer"]
+margin_left = 14.0
+margin_top = 14.0
+margin_right = 24.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 0.25098, 0.25098, 1, 1 )
+
+[node name="ColorRect9" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/BlueScoreContainer/ChitsContainer"]
+margin_left = 28.0
+margin_top = 14.0
+margin_right = 38.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 0.25098, 0.25098, 1, 1 )
+
+[node name="ColorRect10" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/BlueScoreContainer/ChitsContainer"]
+margin_left = 42.0
+margin_top = 14.0
+margin_right = 52.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 0.25098, 0.25098, 1, 1 )
+
+[node name="ColorRect11" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/BlueScoreContainer/ChitsContainer"]
+margin_left = 56.0
+margin_top = 14.0
+margin_right = 66.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 0.25098, 0.25098, 1, 1 )
+
+[node name="ColorRect12" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/BlueScoreContainer/ChitsContainer"]
+margin_left = 70.0
+margin_top = 14.0
+margin_right = 80.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 0.25098, 0.25098, 1, 1 )
+
+[node name="ColorRect13" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/BlueScoreContainer/ChitsContainer"]
+margin_top = 28.0
+margin_right = 10.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 0.25098, 0.25098, 1, 1 )
+
+[node name="ColorRect14" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/BlueScoreContainer/ChitsContainer"]
+margin_left = 14.0
+margin_top = 28.0
+margin_right = 24.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 0.25098, 0.25098, 1, 1 )
+
+[node name="ColorRect15" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/BlueScoreContainer/ChitsContainer"]
+margin_left = 28.0
+margin_top = 28.0
+margin_right = 38.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 0.25098, 0.25098, 1, 1 )
+
+[node name="ColorRect16" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/BlueScoreContainer/ChitsContainer"]
+margin_left = 42.0
+margin_top = 28.0
+margin_right = 52.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 0.25098, 0.25098, 1, 1 )
+
+[node name="ColorRect17" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/BlueScoreContainer/ChitsContainer"]
+margin_left = 56.0
+margin_top = 28.0
+margin_right = 66.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 0.25098, 0.25098, 1, 1 )
+
+[node name="ColorRect18" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/BlueScoreContainer/ChitsContainer"]
+margin_left = 70.0
+margin_top = 28.0
+margin_right = 80.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 0.25098, 0.25098, 1, 1 )
+
+[node name="ColorRect" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/BlueScoreContainer"]
+margin_left = 98.0
+margin_right = 178.0
+margin_bottom = 66.0
+rect_min_size = Vector2( 80, 0 )
+color = Color( 0.25098, 0.25098, 1, 1 )
+
+[node name="WinsLabel" type="Label" parent="GameUI/ScorePanel/ScoreContainer/BlueScoreContainer/ColorRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 3 )
+text = "0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VSeparator" type="VSeparator" parent="GameUI/ScorePanel/ScoreContainer"]
+margin_left = 503.0
+margin_right = 507.0
+margin_bottom = 66.0
+
+[node name="RedScoreContainer" type="HBoxContainer" parent="GameUI/ScorePanel/ScoreContainer"]
+margin_left = 511.0
+margin_right = 689.0
+margin_bottom = 66.0
+
+[node name="ColorRect" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/RedScoreContainer"]
+margin_right = 80.0
+margin_bottom = 66.0
+rect_min_size = Vector2( 80, 0 )
+color = Color( 1, 0.25098, 0.25098, 1 )
+
+[node name="WinsLabel" type="Label" parent="GameUI/ScorePanel/ScoreContainer/RedScoreContainer/ColorRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 3 )
+text = "0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ChitsContainer" type="GridContainer" parent="GameUI/ScorePanel/ScoreContainer/RedScoreContainer"]
+margin_left = 84.0
+margin_top = 14.0
+margin_right = 164.0
+margin_bottom = 52.0
+size_flags_vertical = 4
+columns = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/RedScoreContainer/ChitsContainer"]
+margin_right = 10.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 1, 0.25098, 0.25098, 1 )
+
+[node name="ColorRect2" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/RedScoreContainer/ChitsContainer"]
+margin_left = 14.0
+margin_right = 24.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 1, 0.25098, 0.25098, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/RedScoreContainer/ChitsContainer"]
+margin_left = 28.0
+margin_right = 38.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 1, 0.25098, 0.25098, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/RedScoreContainer/ChitsContainer"]
+margin_left = 42.0
+margin_right = 52.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 1, 0.25098, 0.25098, 1 )
+
+[node name="ColorRect5" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/RedScoreContainer/ChitsContainer"]
+margin_left = 56.0
+margin_right = 66.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 1, 0.25098, 0.25098, 1 )
+
+[node name="ColorRect6" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/RedScoreContainer/ChitsContainer"]
+margin_left = 70.0
+margin_right = 80.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 1, 0.25098, 0.25098, 1 )
+
+[node name="ColorRect7" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/RedScoreContainer/ChitsContainer"]
+margin_top = 14.0
+margin_right = 10.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 1, 0.25098, 0.25098, 1 )
+
+[node name="ColorRect8" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/RedScoreContainer/ChitsContainer"]
+margin_left = 14.0
+margin_top = 14.0
+margin_right = 24.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 1, 0.25098, 0.25098, 1 )
+
+[node name="ColorRect9" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/RedScoreContainer/ChitsContainer"]
+margin_left = 28.0
+margin_top = 14.0
+margin_right = 38.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 1, 0.25098, 0.25098, 1 )
+
+[node name="ColorRect10" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/RedScoreContainer/ChitsContainer"]
+margin_left = 42.0
+margin_top = 14.0
+margin_right = 52.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 1, 0.25098, 0.25098, 1 )
+
+[node name="ColorRect11" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/RedScoreContainer/ChitsContainer"]
+margin_left = 56.0
+margin_top = 14.0
+margin_right = 66.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 1, 0.25098, 0.25098, 1 )
+
+[node name="ColorRect12" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/RedScoreContainer/ChitsContainer"]
+margin_left = 70.0
+margin_top = 14.0
+margin_right = 80.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 1, 0.25098, 0.25098, 1 )
+
+[node name="ColorRect13" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/RedScoreContainer/ChitsContainer"]
+margin_top = 28.0
+margin_right = 10.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 1, 0.25098, 0.25098, 1 )
+
+[node name="ColorRect14" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/RedScoreContainer/ChitsContainer"]
+margin_left = 14.0
+margin_top = 28.0
+margin_right = 24.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 1, 0.25098, 0.25098, 1 )
+
+[node name="ColorRect15" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/RedScoreContainer/ChitsContainer"]
+margin_left = 28.0
+margin_top = 28.0
+margin_right = 38.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 1, 0.25098, 0.25098, 1 )
+
+[node name="ColorRect16" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/RedScoreContainer/ChitsContainer"]
+margin_left = 42.0
+margin_top = 28.0
+margin_right = 52.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 1, 0.25098, 0.25098, 1 )
+
+[node name="ColorRect17" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/RedScoreContainer/ChitsContainer"]
+margin_left = 56.0
+margin_top = 28.0
+margin_right = 66.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 1, 0.25098, 0.25098, 1 )
+
+[node name="ColorRect18" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/RedScoreContainer/ChitsContainer"]
+margin_left = 70.0
+margin_top = 28.0
+margin_right = 80.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 1, 0.25098, 0.25098, 1 )
+
+[node name="TurnIndicator" type="ColorRect" parent="GameUI/ScorePanel/ScoreContainer/RedScoreContainer"]
+margin_left = 168.0
+margin_right = 178.0
+margin_bottom = 66.0
+rect_min_size = Vector2( 10, 40 )
+color = Color( 1, 1, 0.25098, 1 )
 
 [connection signal="gui_input" from="GameUI/MessageContainer" to="." method="_on_MessageContainer_gui_input"]
