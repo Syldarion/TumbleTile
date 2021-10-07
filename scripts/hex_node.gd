@@ -43,7 +43,7 @@ func _process(delta):
 		var lerp_adjusted = 1.0 - abs(lerp_percent - 0.5) * 2.0
 		var lerp_start = Color.white
 		if destroyed:
-			lerp_start = Color.black
+			lerp_start = Color(0.0, 0.0, 0.0, 0.0)
 		var lerp_color = lerp(lerp_start, Color.yellow, lerp_adjusted)
 		modulate = lerp_color
 
@@ -69,7 +69,7 @@ func clear_chips():
 	node_chips = []
 
 func destroy():
-	modulate = Color.black
+	modulate = Color(0.0, 0.0, 0.0, 0.0)
 	destroyed = true
 
 func restore():
@@ -83,7 +83,7 @@ func highlight_node():
 func unhighlight_node():
 	is_highlighted = false
 	if destroyed:
-		modulate = Color.black
+		modulate = Color(0.0, 0.0, 0.0, 0.0)
 	else:
 		modulate = Color.white
 
