@@ -34,7 +34,6 @@ _global_script_class_icons={
 
 config/name="TumbleTile"
 run/main_scene="res://scenes/Game.tscn"
-boot_splash/image="res://sprites/TileTumbleLogo.png"
 config/icon="res://icon.png"
 
 [autoload]

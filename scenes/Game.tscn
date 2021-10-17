@@ -7,14 +7,14 @@
 [ext_resource path="res://scripts/game_ui.gd" type="Script" id=5]
 [ext_resource path="res://scenes/GameBackground.tscn" type="PackedScene" id=6]
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=1]
 size = 72
 outline_size = 2
 outline_color = Color( 0, 0, 0, 1 )
 use_filter = true
 font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=2]
 size = 48
 use_filter = true
 font_data = ExtResource( 2 )
@@ -56,7 +56,7 @@ margin_left = 324.0
 margin_top = 250.0
 margin_right = 700.0
 margin_bottom = 349.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 1 )
 text = "BLUE WINS"
 
 [node name="RedWinsLabel" type="Label" parent="GameUI/MessageContainer"]
@@ -66,7 +66,7 @@ margin_left = 343.0
 margin_top = 250.0
 margin_right = 680.0
 margin_bottom = 349.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 1 )
 text = "RED WINS"
 
 [node name="ScorePanel" type="PanelContainer" parent="GameUI"]
@@ -284,7 +284,7 @@ color = Color( 0.25098, 0.25098, 1, 1 )
 [node name="WinsLabel" type="Label" parent="GameUI/ScorePanel/ScoreContainer/BlueScoreContainer/ColorRect"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 text = "0"
 align = 1
 valign = 1
@@ -311,7 +311,7 @@ color = Color( 1, 0.25098, 0.25098, 1 )
 [node name="WinsLabel" type="Label" parent="GameUI/ScorePanel/ScoreContainer/RedScoreContainer/ColorRect"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 text = "0"
 align = 1
 valign = 1

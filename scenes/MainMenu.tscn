@@ -1,0 +1,90 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scenes/GameBackground.tscn" type="PackedScene" id=1]
+[ext_resource path="res://sprites/TileTumbleLogo.png" type="Texture" id=2]
+[ext_resource path="res://tumbletile_ui_theme.tres" type="Theme" id=3]
+[ext_resource path="res://scripts/main_menu.gd" type="Script" id=4]
+
+[sub_resource type="NoiseTexture" id=1]
+width = 1024
+height = 600
+
+[node name="MainMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+logo_lerp_end = Vector2( 0, -100 )
+logo_lerp_speed = 0.5
+
+[node name="GameBackground" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="GameBackground" parent="GameBackground" instance=ExtResource( 1 )]
+texture = SubResource( 1 )
+expand = true
+
+[node name="MenuUI" type="CanvasLayer" parent="."]
+
+[node name="Tween" type="Tween" parent="MenuUI"]
+
+[node name="GameLogo" type="TextureRect" parent="MenuUI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = ExtResource( 2 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PressToContinueLabel" type="Label" parent="MenuUI"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = 100.0
+margin_bottom = 145.0
+theme = ExtResource( 3 )
+text = "Press any key to continue"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MenuContainer" type="VBoxContainer" parent="MenuUI"]
+visible = false
+modulate = Color( 0, 0, 0, 0 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -300.0
+margin_top = -10.0
+margin_right = 300.0
+margin_bottom = 10.0
+mouse_filter = 2
+theme = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayButton" type="Button" parent="MenuUI/MenuContainer"]
+margin_right = 600.0
+margin_bottom = 45.0
+text = "Play"
+
+[node name="SettingsButton" type="Button" parent="MenuUI/MenuContainer"]
+margin_top = 49.0
+margin_right = 600.0
+margin_bottom = 94.0
+text = "Settings"
+
+[node name="QuitButton" type="Button" parent="MenuUI/MenuContainer"]
+margin_top = 98.0
+margin_right = 600.0
+margin_bottom = 143.0
+text = "Quit"
