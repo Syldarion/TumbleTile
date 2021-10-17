@@ -18,7 +18,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 logo_lerp_end = Vector2( 0, -100 )
-logo_lerp_speed = 0.5
+logo_lerp_speed = 0.8
+container_fade_speed = 0.4
 
 [node name="GameBackground" type="CanvasLayer" parent="."]
 layer = -1
@@ -57,7 +58,6 @@ __meta__ = {
 
 [node name="MenuContainer" type="VBoxContainer" parent="MenuUI"]
 visible = false
-modulate = Color( 0, 0, 0, 0 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -72,19 +72,88 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PlayButton" type="Button" parent="MenuUI/MenuContainer"]
+[node name="PlayLocalButton" type="Button" parent="MenuUI/MenuContainer"]
 margin_right = 600.0
 margin_bottom = 45.0
-text = "Play"
+text = "Play Local"
 
-[node name="SettingsButton" type="Button" parent="MenuUI/MenuContainer"]
+[node name="PlayOnlineButton" type="Button" parent="MenuUI/MenuContainer"]
 margin_top = 49.0
 margin_right = 600.0
 margin_bottom = 94.0
-text = "Settings"
+disabled = true
+text = "Play Online"
 
-[node name="QuitButton" type="Button" parent="MenuUI/MenuContainer"]
+[node name="SettingsButton" type="Button" parent="MenuUI/MenuContainer"]
 margin_top = 98.0
 margin_right = 600.0
 margin_bottom = 143.0
+text = "Settings"
+
+[node name="QuitButton" type="Button" parent="MenuUI/MenuContainer"]
+margin_top = 147.0
+margin_right = 600.0
+margin_bottom = 192.0
 text = "Quit"
+
+[node name="OnlinePlayMenuContainer" type="VBoxContainer" parent="MenuUI"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -300.0
+margin_top = -10.0
+margin_right = 300.0
+margin_bottom = 10.0
+mouse_filter = 2
+theme = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerNameInput" type="LineEdit" parent="MenuUI/OnlinePlayMenuContainer"]
+margin_right = 600.0
+margin_bottom = 53.0
+placeholder_text = "Player Name"
+
+[node name="IPAddressInput" type="LineEdit" parent="MenuUI/OnlinePlayMenuContainer"]
+margin_top = 57.0
+margin_right = 600.0
+margin_bottom = 110.0
+placeholder_text = "Host IP Address"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuUI/OnlinePlayMenuContainer"]
+margin_top = 114.0
+margin_right = 600.0
+margin_bottom = 159.0
+alignment = 1
+
+[node name="HostButton" type="Button" parent="MenuUI/OnlinePlayMenuContainer/HBoxContainer"]
+margin_right = 298.0
+margin_bottom = 45.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Host Game"
+
+[node name="JoinButton" type="Button" parent="MenuUI/OnlinePlayMenuContainer/HBoxContainer"]
+margin_left = 302.0
+margin_right = 600.0
+margin_bottom = 45.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Join Game"
+
+[node name="OnlineBackButton" type="Button" parent="MenuUI/OnlinePlayMenuContainer"]
+margin_top = 163.0
+margin_right = 600.0
+margin_bottom = 208.0
+text = "Back"
+
+[connection signal="pressed" from="MenuUI/MenuContainer/PlayLocalButton" to="." method="_on_PlayLocalButton_pressed"]
+[connection signal="pressed" from="MenuUI/MenuContainer/PlayOnlineButton" to="." method="_on_PlayOnlineButton_pressed"]
+[connection signal="pressed" from="MenuUI/MenuContainer/SettingsButton" to="." method="_on_SettingsButton_pressed"]
+[connection signal="pressed" from="MenuUI/MenuContainer/QuitButton" to="." method="_on_QuitButton_pressed"]
+[connection signal="pressed" from="MenuUI/OnlinePlayMenuContainer/HBoxContainer/HostButton" to="." method="_on_HostButton_pressed"]
+[connection signal="pressed" from="MenuUI/OnlinePlayMenuContainer/HBoxContainer/JoinButton" to="." method="_on_JoinButton_pressed"]
+[connection signal="pressed" from="MenuUI/OnlinePlayMenuContainer/OnlineBackButton" to="." method="_on_OnlineBackButton_pressed"]
